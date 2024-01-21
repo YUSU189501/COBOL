@@ -78,6 +78,11 @@
            END-EXEC.
            DISPLAY "SQLコード" SQLCODE.
       *
+           EXEC SQL
+             DELETE FROM goukakusya
+           END-EXEC.
+           DISPLAY "SQLコード" SQLCODE.
+      *
            DISPLAY "DB ALL DELETE END".
       *
       ** 追加
@@ -164,16 +169,34 @@
       *
            DISPLAY "DB UPDATE END".
       *
+      * 合格者テーブルに合格者を追加する
+           EXEC SQL
+             INSERT INTO goukakusya
+             SELECT *
+             FROM shikenkekka
+             WHERE gozen >= 60
+               AND gogo1 + gogo2 >= 120
+               AND 0.3 * (gozen + gogo1 + gogo2 +
+                   ronjutu) <= ronjutu
+             ORDER BY jukenbi,jukenshaid
+           END-EXEC.
+      *
+           DISPLAY "SQLコード" SQLCODE.
+      *
+           DISPLAY "合格者テーブル追加".
+      *
       * コミット処理する。
            EXEC SQL
              COMMIT
            END-EXEC.
       *
+           DISPLAY "コミット完了".
+      *
       ** 6.カーソルオープン処理
            PERFORM OPEN-RTN.
       *
       ** 7.FETCH処理
-           PERFORM FETCH-RTN 
+           PERFORM FETCH-RTN
              UNTIL SW-NOTFOUND = CST-1X.
       *
       ** 8.カーソルクローズ処理
@@ -226,7 +249,7 @@
            IF SQLCODE = CST-SQL-NF
              THEN
                MOVE CST-1X TO SW-NOTFOUND
-               DISPLAY SQLCODE
+               DISPLAY "SQLコード" SQLCODE
              ELSE
                DISPLAY "受験日:" JUKENBI
                        "合格者ID:" JUKENSHAID
@@ -272,6 +295,9 @@
       * ファイルクローズ
            CLOSE 試験結果ファイル.
            CLOSE 合格者結果ファイル.
+      *
+       CLOSE-RTN-EX.
+       EXIT.
       *
        PROEND                 SECTION.
       *
