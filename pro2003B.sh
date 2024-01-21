@@ -15,7 +15,7 @@ cut -c 1-36 JINJI2003-2 > JINJI2003-2A | cut -c 37-72 JINJI2003-2 >> JINJI2003-2
 cat JINJI2003-1A JINJI2003-2A > MERGE2003
 
 # 人事併合ファイルを所属コードを昇順、従業員コードを降順ソートしてKEKKA2003に書き込む。
-sort -k 2,2 -k 1nr,1 -t "," MERGE2003 > KEKKA2003
+sort -k 2,2 -k 1nr,1 -t "," MERGE2003 | uniq  > KEKKA2003
 
 # 一時ファイル削除
 rm -f MERGE2003
