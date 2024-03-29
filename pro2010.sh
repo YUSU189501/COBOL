@@ -41,10 +41,10 @@ cat "${OUTFILE1}" | awk -v  OFS=, -F, '{tax = ($1<"20191001"||$2~"^*") ? 1.08 : 
 echo "税率・税込額ファイル"
 cat "${OUTFILE2}"
 
-# セルフメディケーション税制額を算出する。
+# セルフメディケーション税制合計額を算出する。
 OUTFILE3="/home/suzuki/DATA/SELF-MED"
-cat "${OUTFILE1}" | awk -v  OFS=, -F, '{tax = ($2~"^*") ? 1.08 : 1.1; print $0,tax}' |
- awk -v OFS=, -F, '$2 ~ /^◆/' | awk -v OFS=, -F, '{print int($3*$4)}' | numsum > "${OUTFILE3}"
+cat "${OUTFILE2}" | awk -v OFS=, -F, '$2 ~ /^◆/' |
+ awk -v OFS=, -F, '{print $0}{b+=$5}END{print "セルフメディケーション税制合計額",b}' > "${OUTFILE3}"
 
 # セルフメディケーション税制合計額ファイルを表示する。
 echo 'セルフメディケーション税制合計額ファイル'
