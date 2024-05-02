@@ -1,30 +1,31 @@
-クラスReceiptで
-privateフィールドを定義する。
+## クラスReceiptにおいて
+### privateフィールドを定義する。
 int date;
 String merchandise;
 int price;
 
-コンストラクタを定義する。
+### コンストラクタを定義する。
 Receipt(int d, String m, int p)に対して
 date = d;
 merchandise = m;
 price = p;
 を定義する。
 
-日付を取得するために、メソッドgetDate()を定義する。
+### 日付を取得するために、メソッドgetDate()を定義する。
 戻り値 date
 
-商品名を取得するために、メソッドgetMerchandise()を定義する。
+### 商品名を取得するために、メソッドgetMerchandise()を定義する。
 戻り値 merchandise
 
-価格を取得するために、メソッドgetPrice()を定義する。
+### 価格を取得するために、メソッドgetPrice()を定義する。
 戻り値 price
 
-ファイル書き込み用で、メソッドgetFile()を定義する。
+### ファイル書き込み用で、メソッドgetFile()を定義する。
 戻り値date + "," + merchandise + "," + price;
 
-クラスMedicineでmainメソッドで以下の様に定義する。
-メソッド名Receiptでオブジェクト名receiptで以下のデータを入力する。
+## クラスMedicineでmainメソッドで以下の様に定義する。
+
+### メソッド名Receiptでオブジェクト名receiptで以下のデータをオブジェクト生成(インスタンス生成)する。
 (20230102, "◆パブロンゴールド", 1280),
 (20230102, "*キリン生茶", 433),
 (20230107, "*キリン生茶", 433),
