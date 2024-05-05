@@ -1,0 +1,121 @@
+## 成績表SQL実行		
+プログラムID:dbpro01		
+		
+## データ部		
+### 作業場所節		
+### 1.ホスト変数の定義		
+埋込SQL宣言節		
+集団項目(レベル番号01)		
+
+|項目名|桁数|設定値|
+|---|---|---|
+|DBNAME|10(Xタイプ)|mydb|
+|USERNAME|10(Xタイプ)|suzuki|
+|PASSWORD|10(Xタイプ)|yudai103|
+		
+集団項目(レベル番号01)		
+
+|項目名|桁数|設定値|
+|---|---|---|
+|SW-AREA|-|-|
+		
+基本項目(レベル番号03)		
+
+|項目名|桁数|設定値|
+|---|---|---|
+|SW-NOTFOUND|1(Xタイプ)|SPACE|
+		
+集団項目(レベル番号01)		
+
+|項目名|桁数|設定値|
+|---|---|---|
+|CST-AREA|-|-|
+		
+基本項目(レベル番号03)		
+
+|項目名|桁数|設定値|
+|---|---|---|
+|CST-1X|1(Xタイプ)|1|
+|CST-SQL-NF|5(S9タイプ)|+100|
+		
+集団項目(レベル番号01)		
+
+|項目名|桁数|設定値|
+|---|---|---|
+|GAKUSEKINO|4(Xタイプ)|-|
+|GAKUSEINAME|40(Xタイプ)|-|
+|HOUGAKU|4(9タイプCOMP)|-|
+|KEIZAIGAKU|4(9タイプCOMP)|-|
+|TETUGAKU|4(9タイプCOMP)|-|
+|JOUHORIRON|4(9タイプCOMP)|-|
+|GAIKOKUGO|4(9タイプCOMP)|-|
+|SOUGOUSEISEKI|1(Xタイプ)|-|
+		
+### 2.共通領域の定義		
+SQLCAをイクードする。		
+		
+## 手続き部		
+### KAISIセクション		
+#### main		
+### 3.データベースと接続		
+USERNAMEとPASSWORDとDBNAMEで接続する。		
+		
+### 4.データベースアクセス		
+全件削除		
+成績表テーブルを全件削除する。		
+DB ALL DELETE ENDが表示される。		
+		
+追加		
+成績表テーブルから別紙の学生をそれぞれ追加する。		
+		
+DB INSERT ENDが表示される。		
+		
+更新		
+成績表テーブルで登録した学籍番号S001の学生を法学85、哲学67に更新する。		
+		
+成績表テーブルで登録した学籍番号A002、E003の学生を英語85に更新する。		
+		
+成績表テーブルで登録した学籍番号G005、H006の学生を情報理論を47に更新する。		
+		
+総合成績更新		
+全科目80以上の学生は「A」とする。		
+		
+法学または外国語が80以上かつ、経済学または哲学が80以上の学生は「B」とする。		
+		
+全科目が50未満の学生は「C」とする。		
+		
+それ以外の学生は「C」とする。		
+		
+DB UPDATE ENDが表示される。		
+		
+削除		
+成績表テーブルでいずれの科目が０がある学生を成績表テーブルから削除する。		
+		
+DB DELETE ENDが表示される。		
+		
+### 5.コミット処理(COMMIT-PRO)		
+コミット処理を表示する。		
+COMMITを実行する。		
+		
+### 6.カーソルオープン処理(OPEN-RTN)		
+カーソルオープン処理を表示する。		
+カーソル名CSR01で成績表テーブルの列を法学、経済学、哲学、情報理論、外国語に対してSELECT文を定義する。		
+カーソル名CSR01を開く。		
+		
+### 7.FETCH処理(FETCH-RTN)		
+FETCH-RTNに対して、SW-NOTFOUND = CST-1Xになるまでループ処理を繰り返す		
+FETCH処理を表示する。		
+GAKUSEKINO、GAKUSEINAME、HOUGAKU、KEIZAIGAKU、TETUGAKU、JOUHORIRON、GAIKOKUGOに対してカーソル名CSR01でフェッチ文を実行する。		
+SQLCODE = CST-SQL-NFの時		
+CST-1XをSW-NOTFOUNDに設定する。		
+SQLCODEを表示する。		
+		
+SQLCODE = CST-SQL-NF以外の時		
+GAKUSEKINO、GAKUSEINAME、HOUGAKU、KEIZAIGAKU、TETUGAKU、JOUHORIRON、GAIKOKUGOを表示する。		
+		
+### 8.カーソルクローズ処理(CLOSE-RTN)		
+カーソルクローズ処理を表示する。		
+カーソル名CSR01をクローズ処理する。		
+		
+### 9.プログラム終了(PROEND)		
+プログラムを終了する。		
